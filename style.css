@@ -1,0 +1,78 @@
+/* ---------------------------------------
+------------------------------------------
+                   Body 
+------------------------------------------
+----------------------------------------*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5E5E5;
+
+/* ---------------------------------------
+               Theme colors
+----------------------------------------*/
+
+    --title-color: #75B79E;
+    --card-color: #A7E9AF;
+    --card-border-color: #99CEA8;
+}
+
+/* ---------------------------------------
+------------------------------------------
+                  Header 
+------------------------------------------
+----------------------------------------*/
+
+header {
+    display: flex;
+    margin: 40px 0;
+}
+
+header h1 {
+    font-weight: bold;
+    font-size: 56px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--title-color);
+}
+
+/* ---------------------------------------
+------------------------------------------
+                  Main 
+------------------------------------------
+----------------------------------------*/
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90vw;
+}
+
+li {
+    display: flex;
+    width: 117px;
+    height: 146px;
+    border-radius: 5px;
+    margin: 0 34px 34px 0;
+    border: 1px solid var(--card-border-color);
+    background-color: var(--card-color);
+}
+
+img {
+    height: 100px;
+    margin: auto;
+}
+
+@media (max-width: 425px) {
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+}
