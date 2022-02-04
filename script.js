@@ -1,8 +1,9 @@
 //----------------------------------------------------------------------------
 //                            Global variables
 
-let cards; let card1; let card2; let cardNumber = 1; let numTurnedCards = 0;
-let turnedCard; let plays = 0; const ul = document.querySelector("ul");
+let cards; let card1; let card2; let cardNumber = 0; let numTurnedCards = 0;
+let turnedCard; let plays = 0; let time = 0; let ul = document.querySelector("ul");
+const clock = document.querySelector(".clock");
 
 const alternateText = [];       //Alternate text of upward card's images
 alternateText[0] = "dancing parrot with unicorn horn";
@@ -78,6 +79,9 @@ function comparador() {
 //                       Function that turns the card
 
 function turnCard(element) {
+    if (plays === 0){
+        const interval = setInterval(updateTime, 1000);
+    }
     plays++;
     
     if (numTurnedCards === 0) {
@@ -151,8 +155,26 @@ function endGameCheck() {
     let numCardsFound = Array.from(document.querySelectorAll(".found")).length / 2;
    
     if (numCardsFound === parseInt(cardNumber)) {
-        alert(`Você ganhou em ${plays} jogadas!`);
+        alert(`Você ganhou em ${plays} jogadas e em ${time} segundos!`);
+        let response = prompt("Gostaria de jogar novamente? (S - Sim e N - Não)");
+
+        if(response === "S" || response === "s"){
+            ul.innerHTML = ""; cardNumber = 0; clearInterval(interval); time = 0;
+            beginGame();
+        } else {
+            clearInterval(interval);
+        }
     }
+}
+
+//----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+//                      Function that updates the time
+
+function updateTime() {
+    time++;
+    clock.innerHTML = time;
 }
 
 //----------------------------------------------------------------------------
