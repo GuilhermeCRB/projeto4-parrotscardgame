@@ -1,17 +1,7 @@
-/* ---------------------------------------
-------------------------------------------
-                   Body 
-------------------------------------------
-----------------------------------------*/
 
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #E5E5E5;
-
-/* ---------------------------------------
-               Theme colors
-----------------------------------------*/
-
     --title-color: #75B79E;
     --card-color: #A7E9AF;
     --card-border-color: #99CEA8;
@@ -64,6 +54,7 @@ ul {
     margin: 0 34px 34px 0;
     border: 1px solid var(--card-border-color);
     background-color: var(--card-color);
+    transition: all 1s;
 }
 
 img {
@@ -79,21 +70,13 @@ img {
     justify-content: center;
     position: absolute;
     backface-visibility: hidden;
-    transition: all .5s;
+    transition: all 1s;
     transform-style: preserve-3d;
-  }
+}
 
-  .back-face {
+.front-face {
     transform: rotateY(180deg);
-  }
-
-  .card:hover .back-face {
-    transform: rotateY(0deg);
-  }
-
-  .card:hover .front-face {
-    transform: rotateY(-180deg);
-  }
+}
 
 @media (max-width: 425px) {
     ul {
@@ -108,6 +91,18 @@ img {
 ------------------------------------------
 ----------------------------------------*/
 
-.hidden{
-    display: none;
+.front-turned {
+    transform: rotateY(0deg);
 }
+
+.turned {
+    transform: rotateY(-180deg);
+}
+
+.front-found {
+    transform: rotateY(0deg);
+}
+
+ .found{
+    transform: rotateY(-180deg);
+ }
