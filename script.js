@@ -2,8 +2,8 @@
 //                            Global variables
 
 let cards; let card1; let card2; let cardNumber = 0; let numTurnedCards = 0;
-let turnedCard; let plays = 0; let time = 0; let ul = document.querySelector("ul");
-const clock = document.querySelector(".clock");
+let turnedCard; let plays = 0; let time = 0; let interval = null;
+let ul = document.querySelector("ul"); const clock = document.querySelector(".clock");
 
 const alternateText = [];       //Alternate text of upward card's images
 alternateText[0] = "dancing parrot with unicorn horn";
@@ -59,8 +59,8 @@ function sortCards(cardNumber) {
     for (let i = 0; i < cardNumber / 2; i++) {        //places the images on the card's front
         card1 = cards[i].querySelector(".front-face");
         card2 = cards[cardNumber - 1 - i].querySelector(".front-face");
-        card1.innerHTML = `<img src="/imgs/pair${i}.gif" alt="${alternateText[i]}">`;
-        card2.innerHTML = `<img src="/imgs/pair${i}.gif" alt="${alternateText[i]}">`;
+        card1.innerHTML = `<img src="./imgs/pair${i}.gif" alt="${alternateText[i]}">`;
+        card2.innerHTML = `<img src="./imgs/pair${i}.gif" alt="${alternateText[i]}">`;
     }
 }
 
@@ -80,21 +80,22 @@ function comparador() {
 
 function turnCard(element) {
     if (plays === 0){
-        const interval = setInterval(updateTime, 1000);
+        interval = setInterval(updateTime, 1000);
     }
-    plays++;
     
-    if (numTurnedCards === 0) {
+    if (numTurnedCards === 0 && element.classList.contains("found") === false) {
         turnedCard = element;
         card1 = element.querySelector(".front-face").innerHTML;
         element.querySelector(".front-face").classList.add("front-turned");
         element.querySelector(".back-face").classList.add("turned");
         element.classList.add("turned");
-    } else if (numTurnedCards === 1 && element !== turnedCard) {
+        plays++;
+    } else if (numTurnedCards === 1 && element !== turnedCard && element.classList.contains("found") === false) {
         card2 = element.querySelector(".front-face").innerHTML;
         element.querySelector(".front-face").classList.add("front-turned");
         element.querySelector(".back-face").classList.add("turned");
         element.classList.add("turned");
+        plays++;
 
         compareCards();
     }
@@ -156,10 +157,16 @@ function endGameCheck() {
    
     if (numCardsFound === parseInt(cardNumber)) {
         alert(`Você ganhou em ${plays} jogadas e em ${time} segundos!`);
-        let response = prompt("Gostaria de jogar novamente? (S - Sim e N - Não)");
+        let response;console.log(response)
+        
+        while (response !== "S" && response !== "s" && response !== "N" && response !== "n") {
+            response = prompt("Gostaria de jogar novamente? (S - Sim e N - Não)");
+            console.log(response)
+        }     
 
         if(response === "S" || response === "s"){
-            ul.innerHTML = ""; cardNumber = 0; clearInterval(interval); time = 0;
+            ul.innerHTML = ""; cardNumber = 0; clearInterval(interval); plays = 0;
+            time = 0; clock.innerHTML = time;
             beginGame();
         } else {
             clearInterval(interval);
